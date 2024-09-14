@@ -1,0 +1,35 @@
+<!-- app/views/users/index.html.erb -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD App - Ruby on Rails</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>CRUD Application</h1>
+
+    <!-- Form for creating new user -->
+    <div id="user-form">
+      <h2>Add New User</h2>
+      <%= form_with model: @user, local: true do |form| %>
+        <%= form.text_field :name, placeholder: "Name" %>
+        <%= form.email_field :email, placeholder: "Email" %>
+        <%= form.submit "Add User" %>
+      <% end %>
+    </div>
+
+    <!-- Display list of users -->
+    <div id="user-list">
+      <h2>All Users</h2>
+      <ul>
+        <% @users.each do |user| %>
+          <li><%= user.name %> - <%= user.email %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
