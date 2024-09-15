@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>Client</h2>
+    <button onclick="getUserData()">Get User Data</button>
+    <script>
+        function getUserData() {
+            fetch('http://localhost:3000/getUserData')
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
