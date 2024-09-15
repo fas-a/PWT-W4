@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Communication Experiment</title>
+</head>
+<body>
+    <h1>Real-Time Communication Experiment</h1>
+    <div>
+        <h2>Long Polling</h2>
+        <p id="long-polling-data">Waiting for updates...</p>
+    </div>
+    <div>
+        <h2>Server-Sent Events (SSE)</h2>
+        <p id="sse-data">Waiting for updates...</p>
+    </div>
+    <div>
+        <h2>WebSockets</h2>
+        <p id="ws-data">Waiting for updates...</p>
+    </div>
+
+    <script>
+        // Long Polling
+        function fetchLongPolling() {
+            fetch('/long-polling')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('long-polling-data').innerText = data.message;
+                    fetchLongPolling(); // Repeat the request for next update
+                })
+                .catch(error => console.error('Error with Long Polling:', error));
+        }
+        fetchLongPolling();
+
+        // Server-Sent Events (SSE)
+        const sse = new EventSource('/sse');
+        sse.onmessage = (event) => {
+            document.getElementById('sse-data').innerText = event.data;
+        };
+
+        // WebSockets
+        const ws = new WebSocket('ws://localhost:3000');
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            console.log('WebSocket message received:', data); // Logging the received data
+            document.getElementById('ws-data').innerText = data.message;
+        };
+        ws.onerror = (error) => {
+            console.error('WebSocket Error:', error);
+        };
+        ws.onopen = () => {
+            console.log('WebSocket connection established');
+        };
+        ws.onclose = () => {
+            console.log('WebSocket connection closed');
+        };
+    </script>
+</body>
+</html>
