@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Storage</title>
+</head>
+<body>
+    <h1>Image Upload</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="imageFiles" name="images" accept="image/*" multiple required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <h1>Image Display</h1>
+    <label for="imageCount">Select number of images to display:</label>
+    <select id="imageCount">
+        <option value="1">1 Image</option>
+        <option value="10">10 Images</option>
+        <option value="100">100 Images</option>
+        <option value="1000">1000 Images</option>
+    </select>
+    <button onclick="fetchImages()">Fetch Images</button>
+    <br><br>
+    <div id="imageGallery"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData();
+            const files = document.getElementById('imageFiles').files;
+
+            for (let i = 0; i < files.length; i++) {
+                formData.append('images', files[i]);
+            }
+
+            fetch('http://localhost:3000/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                alert(result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+        function fetchImages() {
+            const count = document.getElementById('imageCount').value;
+            fetch(`http://localhost:3000/images/${count}`)
+            .then(response => response.json())
+            .then(images => {
+                const gallery = document.getElementById('imageGallery');
+                gallery.innerHTML = ''; // Clear existing images
+                images.forEach(image => {
+                    const img = document.createElement('img');
+                    img.src = `http://localhost:3000/image/${image.id}`; // Changed from filename to id
+                    img.style.maxWidth = '100px'; // Adjust as needed
+                    img.style.margin = '5px';
+                    gallery.appendChild(img);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
