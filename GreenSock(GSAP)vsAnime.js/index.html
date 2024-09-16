@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP vs Anime.js Complex Comparison</title>
+    <style>
+      body {
+        justify-content: space-around;
+        margin-top: 100px;
+      }
+      .container {
+        width: 200px;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+      .circle,
+      .square {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+      }
+      .circle {
+        background-color: coral;
+        border-radius: 50%;
+      }
+      .square {
+        background-color: skyblue;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: teal;
+        position: absolute;
+        top: 100px;
+      }
+      #gsap-box {
+        left: 100px;
+      }
+      #anime-box {
+        left: 300px;
+      }
+      .box2 {
+        width: 100px;
+        height: 100px;
+        background-color: teal;
+        position: absolute;
+        top: 100px;
+      }
+      #gsap-box2 {
+        left: 100px;
+      }
+      #anime-box2 {
+        left: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>simple animation</h2>
+    <div style="display: flex">
+      <h2>GSAP</h2>
+      <div class="container">
+        <div id="gsap-box" class="box"></div>
+      </div>
+      <h2>Anime.js</h2>
+      <div class="container">
+        <div id="anime-box" class="box"></div>
+      </div>
+    </div>
+    <h2>medium animation</h2>
+    <div style="display: flex">
+      <h2>GSAP</h2>
+      <div class="container">
+        <div id="gsap-box2" class="box2"></div>
+      </div>
+      <h2>Anime.js</h2>
+      <div class="container">
+        <div id="anime-box2" class="box2"></div>
+      </div>
+    </div>
+
+    <h2>complex animation</h2>
+    <div style="display: flex">
+      <h2>GSAP</h2>
+      <div id="gsap-container" class="container">
+        <div class="circle"></div>
+        <div class="square"></div>
+      </div>
+      <h2>Anime.js</h2>
+      <div id="anime-container" class="container">
+        <div class="circle"></div>
+        <div class="square"></div>
+      </div>
+    </div>
+
+    <!-- GSAP and Anime.js libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="animation.js"></script>
+  </body>
+</html>
